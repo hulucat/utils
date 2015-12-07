@@ -15,7 +15,7 @@ type Session struct {
 var sessionStore *sessions.CookieStore
 
 func GetSession(w http.ResponseWriter, r *http.Request) (session *Session) {
-	rs, _ := sessionStore.Get(r, "session-name")
+	rs, _ := sessionStore.Get(r, "hulusession")
 	if rs == nil {
 		Errorf("Error get Session")
 	}
@@ -30,7 +30,7 @@ func (s *Session) Get(key string) string {
 		Warnf("Real session is nil")
 		return ""
 	}
-	Debugf("Session id in get: %s", s.realSession.ID)
+	//Debugf("Session id in get: %s", s.realSession.ID)
 	value, _ := s.realSession.Values[key]
 	if value == nil {
 		return ""
@@ -48,5 +48,5 @@ func (s *Session) Set(key, value string) {
 	if err := s.realSession.Save(s.r, s.w); err != nil {
 		Errorf("Error save session %s, %s: %s", key, value, err.Error())
 	}
-	Debugf("Session id in set: %s", s.realSession.ID)
+	//Debugf("Session id in set: %s", s.realSession.ID)
 }
