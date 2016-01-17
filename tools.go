@@ -45,3 +45,11 @@ func ParseInt64(s string) int64 {
 	}
 	return v
 }
+
+func ParseFloat(s string) float64 {
+	v, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		Errorf("Error parse float %s: %s", s, err.Error())
+	}
+	return v
+}
